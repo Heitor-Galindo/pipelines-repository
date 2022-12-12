@@ -1,0 +1,26 @@
+pipeline {
+    agent any 
+    stages {
+        stage("Clean") {
+            steps {
+                script {
+                    sh "rm -R *"
+                }
+            }
+        }
+        stage("Build") {
+            steps {
+                script {
+                    sh "mvn -U clean install -DskipTests"
+                }
+            }
+        }
+        stage("Deploy") {
+            steps {
+                script {
+                    sh "mvn deploy -DskipTests"
+                }
+            }
+        }
+    }
+}
